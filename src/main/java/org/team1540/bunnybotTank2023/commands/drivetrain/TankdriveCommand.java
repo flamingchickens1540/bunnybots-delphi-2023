@@ -10,17 +10,17 @@ import org.team1540.bunnybotTank2023.Constants;
 public class TankdriveCommand extends CommandBase {
     private final Drivetrain drivetrain;
 
-    private final CommandXboxController xBox;
+    private final CommandXboxController xBoxController;
 
-    public TankdriveCommand(Drivetrain subsystem, CommandXboxController xBox) {
-        drivetrain = subsystem;
-        this.xBox = xBox;
-        addRequirements(subsystem);
+    public TankdriveCommand(Drivetrain drivetrain, CommandXboxController xBoxController) {
+        this.drivetrain = drivetrain;
+        this.xBoxController = xBoxController;
+        addRequirements(drivetrain);
     }
 
     public void execute() {
-        double leftInput = xBox.getLeftY();
-        double rightInput = xBox.getRightY();
+        double leftInput = xBoxController.getLeftY();
+        double rightInput = xBoxController.getRightY();
         MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS);
         MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS);
 
@@ -29,7 +29,7 @@ public class TankdriveCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        
+        drivetrain.stop();
     }
 
     @Override
