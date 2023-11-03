@@ -25,7 +25,7 @@ public class Drivetrain extends SubsystemBase{
         backLeft.setIdleMode(CANSparkMax.IdleMode.kBrake);
         backRight.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-        //Current Limit
+        //Current Limits
         frontLeft.setSmartCurrentLimit(40);
         frontRight.setSmartCurrentLimit(40);
         backLeft.setSmartCurrentLimit(40);
@@ -33,15 +33,8 @@ public class Drivetrain extends SubsystemBase{
     }
 
     //Speed between -1 and 1
-    public void drive(double speed, boolean isLeftInput) {
-        if (isLeftInput) {
-            frontLeft.set(speed);
-        } else {
-            frontRight.set(speed);
-        }
-    }
-    
-    public void stop(boolean isLeftInput) {
-        drive(0.0, isLeftInput);
+    public void drive(double leftInput, double rightInput) {
+        frontLeft.set(leftInput);
+        frontRight.set(rightInput);
     }
 }

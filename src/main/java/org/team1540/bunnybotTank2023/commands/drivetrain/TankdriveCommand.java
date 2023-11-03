@@ -24,13 +24,12 @@ public class TankdriveCommand extends CommandBase {
         MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS);
         MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS);
 
-        drivetrain.drive(leftInput, true);
-        drivetrain.drive(rightInput, false);
+        drivetrain.drive(leftInput, rightInput);
     }
 
     @Override
     public void end(boolean interrupted) {
-
+        
     }
 
     @Override
