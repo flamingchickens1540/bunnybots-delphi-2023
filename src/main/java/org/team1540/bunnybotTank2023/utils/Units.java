@@ -44,6 +44,6 @@ public class Units {
      */
     public static double metersToMotorRots(double meters, double wheelDiameter, double gearRatio) {
         double wheelCircumference = Math.PI * wheelDiameter;
-        return (meters / wheelDiameter) * gearRatio;
+        return (meters / wheelCircumference) * gearRatio;
     }
 }
