@@ -16,7 +16,6 @@ public class Drivetrain extends SubsystemBase{
     private final CANSparkMax frontRight = new CANSparkMax(Constants.DrivetrainConstants.FRONT_RIGHT_ID, MotorType.kBrushless);
     private final CANSparkMax backLeft = new CANSparkMax(Constants.DrivetrainConstants.BACK_LEFT_ID, MotorType.kBrushless);
     private final CANSparkMax backRight = new CANSparkMax(Constants.DrivetrainConstants.BACK_RIGHT_ID, MotorType.kBrushless);
-
     public Drivetrain() {
         backRight.follow(frontRight);
         backLeft.follow(frontLeft);
@@ -43,4 +42,6 @@ public class Drivetrain extends SubsystemBase{
     public void stop() {
         drive(0,0);
     }
+
+
 }

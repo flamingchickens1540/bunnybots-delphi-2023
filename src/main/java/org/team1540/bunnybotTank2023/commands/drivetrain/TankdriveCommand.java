@@ -21,8 +21,8 @@ public class TankdriveCommand extends CommandBase {
     public void execute() {
         double leftInput = xBoxController.getLeftY();
         double rightInput = xBoxController.getRightY();
-        MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS);
-        MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS);
+        leftInput = MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS);
+        rightInput = MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS);
 
         drivetrain.drive(leftInput, rightInput);
     }
