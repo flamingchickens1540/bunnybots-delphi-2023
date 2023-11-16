@@ -9,8 +9,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import org.team1540.bunnybotTank2023.utils.Conversions;
 import org.team1540.bunnybotTank2023.utils.DifferentialDriveWheelPositions;
-import org.team1540.bunnybotTank2023.utils.Units;
 
 import static org.team1540.bunnybotTank2023.Constants.*;
 
@@ -75,8 +75,8 @@ public class Drivetrain extends SubsystemBase{
 
     public DifferentialDriveWheelPositions getWheelPositions() {
         return new DifferentialDriveWheelPositions(
-                Units.motorRotsToMeters(frontLeft.getEncoder().getPosition(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO),
-                Units.motorRotsToMeters(frontRight.getEncoder().getPosition(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO)
+                Conversions.motorRotsToMeters(frontLeft.getEncoder().getPosition(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO),
+                Conversions.motorRotsToMeters(frontRight.getEncoder().getPosition(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO)
         );
     }
 
