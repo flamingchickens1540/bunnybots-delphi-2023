@@ -2,7 +2,7 @@ package org.team1540.bunnybotTank2023.utils;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
-public class Units {
+public class Conversions {
     /**
      * Converts a motor rotation count into mechanism rotations based on a gear ratio
      * @param rotationCounts motor rotation counts
