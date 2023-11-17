@@ -7,10 +7,20 @@ public final class Constants {
     public static final double DEADZONE_RADIUS = 0.1;
 
     public static class DrivetrainConstants {
+
         public static final double GEAR_RATIO = 6.11;
         public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.973); // The drivetrain wheels have slightly different diameters, so we take the average
         public static final double TRACK_WIDTH = Units.inchesToMeters(22.75);
-        public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(TRACK_WIDTH);
+
+        // PID constants
+        public static final double VELOCITY_KP = 3.2925;
+        public static final double VELOCITY_KI = 0;
+        public static final double VELOCITY_KD = 0;
+
+        // FF constants
+        public static final double KS = 0.650;
+        public static final double KV = 2.81;
+        public static final double KA = 0.224;
 
         public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT = 40;
 

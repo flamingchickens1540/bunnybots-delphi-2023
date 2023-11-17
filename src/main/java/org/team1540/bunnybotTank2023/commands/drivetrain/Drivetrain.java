@@ -1,14 +1,18 @@
 package org.team1540.bunnybotTank2023.commands.drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPRamseteCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj2.command.*;
 
+import org.team1540.bunnybotTank2023.RamseteConfig;
 import org.team1540.bunnybotTank2023.utils.Conversions;
 import org.team1540.bunnybotTank2023.utils.DifferentialDriveWheelPositions;
 
@@ -45,7 +49,7 @@ public class Drivetrain extends SubsystemBase{
 
         this.gyro = gyro;
         poseEstimator = new DifferentialDrivePoseEstimator(
-                DrivetrainConstants.DRIVE_KINEMATICS,
+                RamseteConfig.driveKinematics,
                 getYaw(),
                 getWheelPositions().leftDistanceMeters,
                 getWheelPositions().rightDistanceMeters,
@@ -65,8 +69,33 @@ public class Drivetrain extends SubsystemBase{
         frontRight.set(rightInput);
     }
 
+    public void setVoltage(double leftVolts, double rightVolts) {
+        frontLeft.setVoltage(leftVolts);
+        frontRight.setVoltage(rightVolts);
+    }
+
     public void stop() {
         drive(0,0);
+    }
+
+    public Command getPathCommand(PathPlannerTrajectory trajectory, boolean resetToPath) {
+        return Commands.sequence(
+                new InstantCommand(() -> {
+                    if (resetToPath) resetOdometry(trajectory.getInitialPose());
+                }),
+                new PPRamseteCommand(
+                        trajectory,
+                        this::getPose,
+                        RamseteConfig.ramseteController,
+                        RamseteConfig.feedforward,
+                        RamseteConfig.driveKinematics,
+                        this::getWheelSpeeds,
+                        RamseteConfig.leftPID,
+                        RamseteConfig.rightPID,
+                        this::setVoltage,
+                        this
+                )
+        );
     }
 
     public Rotation2d getYaw() {
@@ -77,6 +106,13 @@ public class Drivetrain extends SubsystemBase{
         return new DifferentialDriveWheelPositions(
                 Conversions.motorRotsToMeters(frontLeft.getEncoder().getPosition(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO),
                 Conversions.motorRotsToMeters(frontRight.getEncoder().getPosition(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO)
+        );
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(
+                Conversions.RPMtoMPS(frontLeft.getEncoder().getVelocity(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO),
+                Conversions.RPMtoMPS(frontRight.getEncoder().getVelocity(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO)
         );
     }
 
