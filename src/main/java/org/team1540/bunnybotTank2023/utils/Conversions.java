@@ -46,4 +46,26 @@ public class Conversions {
         double wheelCircumference = Math.PI * wheelDiameter;
         return (meters / wheelCircumference) * gearRatio;
     }
+
+    /**
+     * Converts rotations per minute to meters per second
+     * @param rpm rotations per minute
+     * @param wheelDiameter wheel diameter in meters
+     * @param gearRatio gear ratio between motor and wheel
+     * @return meters per second
+     */
+    public static double RPMtoMPS(double rpm, double wheelDiameter, double gearRatio) {
+        return motorRotsToMeters(rpm/60, wheelDiameter, gearRatio);
+    }
+
+    /**
+     * Converts meters per second to rotations per minute
+     * @param mps meters per second
+     * @param wheelDiameter wheel diameter in meters
+     * @param gearRatio gear ratio between motor and wheel
+     * @return rotations per minute
+     */
+    public static double MPStoRPM(double mps, double wheelDiameter, double gearRatio) {
+        return metersToMotorRots(mps, wheelDiameter, gearRatio) * 60;
+    }
 }

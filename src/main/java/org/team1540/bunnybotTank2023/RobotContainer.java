@@ -5,7 +5,11 @@
 
 package org.team1540.bunnybotTank2023;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.Command;
+import org.team1540.bunnybotTank2023.commands.auto.TestAuto;
+import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -14,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+    public final AHRS gyro = new AHRS(SPI.Port.kMXP);
+    public final Drivetrain drivetrain = new Drivetrain(gyro);
 
     public RobotContainer() {
         // Configure the trigger bindings
@@ -33,6 +39,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return null;
+        return new TestAuto(drivetrain);
     }
 }
