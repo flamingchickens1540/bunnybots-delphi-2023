@@ -6,6 +6,7 @@ import com.pathplanner.lib.commands.PPRamseteCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -90,8 +91,8 @@ public class Drivetrain extends SubsystemBase{
                         RamseteConfig.feedforward,
                         RamseteConfig.driveKinematics,
                         this::getWheelSpeeds,
-                        RamseteConfig.leftPID,
-                        RamseteConfig.rightPID,
+                        new PIDController(DrivetrainConstants.VELOCITY_KP, DrivetrainConstants.VELOCITY_KI, DrivetrainConstants.VELOCITY_KD),
+                        new PIDController(DrivetrainConstants.VELOCITY_KP, DrivetrainConstants.VELOCITY_KI, DrivetrainConstants.VELOCITY_KD),
                         this::setVoltage,
                         this
                 )

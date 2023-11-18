@@ -14,18 +14,6 @@ public class RamseteConfig {
             DrivetrainConstants.TRACK_WIDTH
     );
 
-    // PID controllers
-    public static final PIDController leftPID = new PIDController(
-            DrivetrainConstants.VELOCITY_KP,
-            DrivetrainConstants.VELOCITY_KI,
-            DrivetrainConstants.VELOCITY_KD
-    );
-    public static final PIDController rightPID = new PIDController(
-            DrivetrainConstants.VELOCITY_KP,
-            DrivetrainConstants.VELOCITY_KI,
-            DrivetrainConstants.VELOCITY_KD
-    );
-
     // Feedforward
     public static final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
             DrivetrainConstants.KS,
