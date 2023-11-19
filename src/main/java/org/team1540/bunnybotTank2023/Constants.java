@@ -4,6 +4,19 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
+    public static final Mode currentMode = Mode.REAL;
+
+    public enum Mode {
+        /** Running on real robot */
+        REAL,
+
+        /** Running on simulated robot */
+        SIM,
+
+        /** Replaying from a log file */
+        REPLAY
+    }
+
     public static final double DEADZONE_RADIUS = 0.1;
 
     public static class DrivetrainConstants {
