@@ -1,10 +1,9 @@
 package org.team1540.bunnybotTank2023;
 
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-    public static final Mode currentMode = Mode.REAL;
+    public static final Mode currentMode = Mode.SIM;
 
     public enum Mode {
         /** Running on real robot */
@@ -20,10 +19,12 @@ public final class Constants {
     public static final double DEADZONE_RADIUS = 0.1;
 
     public static class DrivetrainConstants {
-
         public static final double GEAR_RATIO = 6.11;
         public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.973); // The drivetrain wheels have slightly different diameters, so we take the average
         public static final double TRACK_WIDTH = Units.inchesToMeters(22.75);
+
+        public static final double MASS = Units.lbsToKilograms(118); // TODO: 11/18/2023 omg its tem 118 teh robnots
+        public static final double MOI = 254; // TODO: 11/18/2023 omg its frc tem 254 teh chezy pofs
 
         // PID constants
         public static final double VELOCITY_KP = 3.2925;
