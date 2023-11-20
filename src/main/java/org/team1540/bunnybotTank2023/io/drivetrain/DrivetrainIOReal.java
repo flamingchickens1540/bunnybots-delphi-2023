@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 import static org.team1540.bunnybotTank2023.Constants.*;
 
-public class DrivetrainIOSparkMax implements DrivetrainIO {
+public class DrivetrainIOReal implements DrivetrainIO {
     private final CANSparkMax frontLeft = new CANSparkMax(DrivetrainConstants.FRONT_LEFT_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
     private final CANSparkMax frontRight = new CANSparkMax(DrivetrainConstants.FRONT_RIGHT_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
     private final CANSparkMax backLeft = new CANSparkMax(DrivetrainConstants.BACK_LEFT_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -19,7 +19,7 @@ public class DrivetrainIOSparkMax implements DrivetrainIO {
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
 
-    public DrivetrainIOSparkMax() {
+    public DrivetrainIOReal() {
         // Motor configs
         backRight.follow(frontRight);
         backLeft.follow(frontLeft);
@@ -51,12 +51,14 @@ public class DrivetrainIOSparkMax implements DrivetrainIO {
         inputs.leftPositionRots = leftEncoder.getPosition();
         inputs.leftVelocityRPM = leftEncoder.getVelocity();
         inputs.leftAppliedVolts = frontLeft.getAppliedOutput() * frontLeft.getBusVoltage();
-        inputs.leftCurrentAmps = new double[] {frontLeft.getOutputCurrent(), backLeft.getOutputCurrent()};
+        inputs.leftCurrentAmps[0] = frontLeft.getOutputCurrent();
+        inputs.leftCurrentAmps[1] = backLeft.getOutputCurrent();
 
         inputs.rightPositionRots = rightEncoder.getPosition();
         inputs.rightVelocityRPM = leftEncoder.getVelocity();
         inputs.rightAppliedVolts = frontRight.getAppliedOutput() * frontRight.getBusVoltage();
-        inputs.rightCurrentAmps = new double[] {frontRight.getOutputCurrent(), backRight.getOutputCurrent()};
+        inputs.rightCurrentAmps[0] = frontRight.getOutputCurrent();
+        inputs.rightCurrentAmps[1] = backRight.getOutputCurrent();
 
         inputs.gyroYawRad = gyro.getRotation2d().getRadians();
     }

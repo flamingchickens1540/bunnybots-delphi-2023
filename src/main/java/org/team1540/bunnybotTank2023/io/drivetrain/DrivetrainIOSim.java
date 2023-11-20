@@ -35,12 +35,12 @@ public class DrivetrainIOSim implements DrivetrainIO {
         inputs.leftPositionRots = Conversions.metersToMotorRots(sim.getLeftPositionMeters(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO);
         inputs.leftVelocityRPM = Conversions.MPStoRPM(sim.getLeftVelocityMetersPerSecond(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO);
         inputs.leftAppliedVolts = leftAppliedVolts;
-        inputs.leftCurrentAmps = new double[] {sim.getLeftCurrentDrawAmps()};
+        inputs.leftCurrentAmps[0] = sim.getLeftCurrentDrawAmps();
 
         inputs.rightPositionRots = Conversions.metersToMotorRots(sim.getRightPositionMeters(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO);
         inputs.rightVelocityRPM = Conversions.MPStoRPM(sim.getRightVelocityMetersPerSecond(), DrivetrainConstants.WHEEL_DIAMETER, DrivetrainConstants.GEAR_RATIO);
         inputs.rightAppliedVolts = rightAppliedVolts;
-        inputs.rightCurrentAmps = new double[] {sim.getRightCurrentDrawAmps()};
+        inputs.rightCurrentAmps[0] = sim.getRightCurrentDrawAmps();
 
         inputs.gyroYawRad = sim.getHeading().getRadians();
     }

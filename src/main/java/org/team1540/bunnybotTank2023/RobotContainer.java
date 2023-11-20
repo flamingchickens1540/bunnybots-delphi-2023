@@ -11,7 +11,7 @@ import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSim;
-import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSparkMax;
+import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOReal;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,7 +30,7 @@ public class RobotContainer {
     public RobotContainer() {
         if (Robot.isReal()) {
             // Initialize subsystems with hardware IO
-            drivetrain = new Drivetrain(new DrivetrainIOSparkMax());
+            drivetrain = new Drivetrain(new DrivetrainIOReal());
         } else {
             // Initialize subsystems with simulation IO
             drivetrain = new Drivetrain(new DrivetrainIOSim());
