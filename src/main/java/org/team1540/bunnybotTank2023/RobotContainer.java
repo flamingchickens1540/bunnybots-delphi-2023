@@ -6,8 +6,10 @@
 package org.team1540.bunnybotTank2023;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import org.team1540.bunnybotTank2023.commands.auto.TestAuto;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
+import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSim;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSparkMax;
 
@@ -18,7 +20,12 @@ import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSparkMax;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-    public final Drivetrain drivetrain;
+    // Subsystems
+    Drivetrain drivetrain;
+
+    // Controllers
+    CommandXboxController driver = new CommandXboxController(0);
+    CommandXboxController copilot = new CommandXboxController(1);
 
     public RobotContainer() {
         if (Robot.isReal()) {
@@ -28,7 +35,7 @@ public class RobotContainer {
             // Initialize subsystems with simulation IO
             drivetrain = new Drivetrain(new DrivetrainIOSim());
         }
-        // Configure the trigger bindings
+        setDefaultCommands();
         configureButtonBindings();
     }
     
@@ -36,6 +43,10 @@ public class RobotContainer {
     /** Use this method to define your trigger->command mappings. */
     private void configureButtonBindings() {
 
+    }
+
+    private void setDefaultCommands() {
+        drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
     }
 
 
@@ -46,6 +57,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new TestAuto(drivetrain);
+        return new AutoShoot5RamTotes(drivetrain);
     }
 }

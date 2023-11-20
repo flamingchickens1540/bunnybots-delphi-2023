@@ -27,6 +27,12 @@ public class Drivetrain extends SubsystemBase{
 
     public Drivetrain(DrivetrainIO io) {
         this.io = io;
+        PPRamseteCommand.setLoggingCallbacks(
+                trajectory -> Logger.getInstance().recordOutput("odometry/activeTrajectory", trajectory),
+                targetPose -> Logger.getInstance().recordOutput("odometry/targetPose", targetPose),
+                null,
+                null
+        );
         poseEstimator = new DifferentialDrivePoseEstimator(
                 RamseteConfig.driveKinematics,
                 getYaw(),
@@ -43,7 +49,7 @@ public class Drivetrain extends SubsystemBase{
 
         DifferentialDriveWheelPositions wheelPositions = getWheelPositions();
         poseEstimator.update(getYaw(), wheelPositions.leftDistanceMeters, wheelPositions.rightDistanceMeters);
-        Logger.getInstance().recordOutput("Odometry/RobotPose", getPose());
+        Logger.getInstance().recordOutput("odometry/robotPose", getPose());
     }
 
     //Speed between -1 and 1

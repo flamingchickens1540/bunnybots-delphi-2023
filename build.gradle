@@ -11,7 +11,7 @@ def javaVersion = JavaVersion.VERSION_11
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
-def ROBOT_MAIN_CLASS = "org.team1504.bunnybotTank2023.Main"
+def ROBOT_MAIN_CLASS = "org.team1540.bunnybotTank2023.Main"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project DeployUtils.
@@ -48,7 +48,7 @@ def deployArtifact = deploy.targets.roborio.artifacts.frcJava
 wpi.java.debugJni = false
 
 // Set this to true to enable desktop support.
-def includeDesktopSupport = false
+def includeDesktopSupport = true
 
 repositories {
     maven {

@@ -24,7 +24,7 @@ public final class Constants {
         public static final double TRACK_WIDTH = Units.inchesToMeters(22.75);
 
         public static final double MASS = Units.lbsToKilograms(118); // TODO: 11/18/2023 omg its tem 118 teh robnots
-        public static final double MOI = 254; // TODO: 11/18/2023 omg its frc tem 254 teh chezy pofs
+        public static final double MOI = 2.54; // TODO: 11/18/2023 omg its frc tem 254 teh chezy pofs
 
         // PID constants
         public static final double VELOCITY_KP = 3.2925;

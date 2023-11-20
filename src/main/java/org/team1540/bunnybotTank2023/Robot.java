@@ -28,6 +28,7 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotInit() {
+        System.out.println("[Init] Starting AdvantageKit");
         Logger logger = Logger.getInstance();
 
         // Record metadata
@@ -68,6 +69,7 @@ public class Robot extends LoggedRobot {
         logger.start();
 
         // Instantiate RobotContainer
+        System.out.println("[Init] Instantiating RobotContainer");
         robotContainer = new RobotContainer();
     }
 
