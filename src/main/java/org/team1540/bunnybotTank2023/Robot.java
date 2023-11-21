@@ -49,20 +49,18 @@ public class Robot extends LoggedRobot {
         }
 
         // Setup data receivers and replay source
-        switch(Constants.currentMode) {
-            case REAL:
-                if (DriverStation.isFMSAttached()) logger.addDataReceiver(new WPILOGWriter("/U"));
+        if (isReal()) {
+            if (DriverStation.isFMSAttached()) new WPILOGWriter("/U");
+            logger.addDataReceiver(new NT4Publisher());
+        } else {
+            if (Constants.simulationMode == Constants.SimulationMode.SIM) {
                 logger.addDataReceiver(new NT4Publisher());
-                break;
-            case SIM:
-                logger.addDataReceiver(new NT4Publisher());
-                break;
-            case REPLAY:
+            } else {
                 setUseTiming(false);
                 String logPath = LogFileUtil.findReplayLog();
                 logger.setReplaySource(new WPILOGReader(logPath));
                 logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
-                break;
+            }
         }
 
         // Start logging

@@ -3,11 +3,10 @@ package org.team1540.bunnybotTank2023;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-    public static final Mode currentMode = Mode.SIM;
+    // Simulation mode, irrelevant for code running on physical robot
+    public static final SimulationMode simulationMode = SimulationMode.SIM;
 
-    public enum Mode {
-        /** Running on real robot */
-        REAL,
+    public enum SimulationMode {
 
         /** Running on simulated robot */
         SIM,
