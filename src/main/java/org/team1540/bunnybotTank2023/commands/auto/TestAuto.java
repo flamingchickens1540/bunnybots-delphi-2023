@@ -7,7 +7,7 @@ import org.team1540.bunnybotTank2023.utils.AutoCommand;
 public class TestAuto extends AutoCommand {
     public TestAuto(Drivetrain drivetrain) {
         addCommands(
-            getPathPlannerDriveCommand(drivetrain,"Forward1Meter", new PathConstraints(4, 2), true)
+            getPathPlannerDriveCommand(drivetrain,"TestAuto", new PathConstraints(4, 2), true)
         );
     }
 }

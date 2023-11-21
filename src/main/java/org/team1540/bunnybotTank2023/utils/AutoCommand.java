@@ -26,9 +26,9 @@ public abstract class AutoCommand extends SequentialCommandGroup {
             boolean resetToPath) {
         List<PathPlannerTrajectory> trajectories = PathPlanner.loadPathGroup(pathName, Arrays.asList(constraints));
         LinkedList<Command> commands = new LinkedList<>();
-        commands.addLast(new PathPlannerDriveCommand(drivetrain, trajectories.get(0), resetToPath).asProxy());
+        commands.addLast(new PathPlannerDriveCommand(drivetrain, trajectories.get(0), resetToPath));
         for (int i = 1; i < trajectories.size(); i++) {
-            commands.addLast(new PathPlannerDriveCommand(drivetrain, trajectories.get(0), false).asProxy());
+            commands.addLast(new PathPlannerDriveCommand(drivetrain, trajectories.get(i), false));
         }
         return commands;
     }
