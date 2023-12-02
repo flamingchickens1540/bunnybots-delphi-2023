@@ -13,7 +13,7 @@ public class ShooterIOSim implements ShooterIO {
 
     private final PIDController pid = new PIDController(ShooterConstants.KP, ShooterConstants.KI, ShooterConstants.KD);
     private final SimpleMotorFeedforward feedforward =
-            new SimpleMotorFeedforward(ShooterConstants.KS, ShooterConstants.KV);
+            new SimpleMotorFeedforward(0, ShooterConstants.KV); // no kS since sim doesn't have friction
 
     private double appliedVolts = 0;
     private boolean isClosedLoop = false;
@@ -23,10 +23,11 @@ public class ShooterIOSim implements ShooterIO {
     public void updateInputs(ShooterInputs inputs) {
         if (isClosedLoop) {
             appliedVolts =
-                    pid.calculate(sim.getAngularVelocityRPM() * 60, closedLoopSetpoint)
+                    pid.calculate(sim.getAngularVelocityRPM() / 60, closedLoopSetpoint)
                     + feedforward.calculate(closedLoopSetpoint);
-            setVoltage(appliedVolts);
+            sim.setInputVoltage(MathUtil.clamp(appliedVolts, -12, 12));
         }
+        sim.update(0.02);
 
         inputs.velocityRPM = sim.getAngularVelocityRPM();
         inputs.appliedVolts = appliedVolts;
@@ -42,6 +43,7 @@ public class ShooterIOSim implements ShooterIO {
 
     @Override
     public void setVelocity(double speedRPM) {
+        pid.reset();
         isClosedLoop = true;
         closedLoopSetpoint = speedRPM / 60;
     }

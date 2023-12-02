@@ -15,7 +15,6 @@ public class AutoShoot5RamTotes extends AutoCommand {
                 new PathConstraints[] {new PathConstraints(5, 2)},
                 true
         );
-        System.out.println(pathCommands);
         addCommands(
                 pathCommands.get(0),
                 pathCommands.get(1),
