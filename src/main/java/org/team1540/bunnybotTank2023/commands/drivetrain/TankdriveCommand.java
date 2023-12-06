@@ -1,6 +1,7 @@
 package org.team1540.bunnybotTank2023.commands.drivetrain;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -12,6 +13,9 @@ public class TankdriveCommand extends CommandBase {
 
     private final CommandXboxController xBoxController;
 
+    private final SlewRateLimiter leftRateLimiter = new SlewRateLimiter(4);
+    private final SlewRateLimiter rightRateLimiter = new SlewRateLimiter(4);
+
     public TankdriveCommand(Drivetrain drivetrain, CommandXboxController xBoxController) {
         this.drivetrain = drivetrain;
         this.xBoxController = xBoxController;
@@ -21,8 +25,8 @@ public class TankdriveCommand extends CommandBase {
     public void execute() {
         double leftInput = -xBoxController.getLeftY();
         double rightInput = -xBoxController.getRightY();
-        leftInput = MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS);
-        rightInput = MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS);
+        leftInput = leftRateLimiter.calculate(MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS));
+        rightInput = rightRateLimiter.calculate(MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS));
 
         drivetrain.drive(leftInput, rightInput);
     }
