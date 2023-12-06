@@ -9,6 +9,7 @@ public class ShooterSpinUpCommand extends CommandBase {
     public ShooterSpinUpCommand(Shooter shooter, double rpm) {
         this.shooter = shooter;
         this.setpoint = rpm;
+        addRequirements(shooter);
     }
 
     @Override
