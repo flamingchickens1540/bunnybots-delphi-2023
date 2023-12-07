@@ -25,8 +25,19 @@ public class TankdriveCommand extends CommandBase {
     public void execute() {
         double leftInput = -xBoxController.getLeftY();
         double rightInput = -xBoxController.getRightY();
-        leftInput = leftRateLimiter.calculate(MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS));
-        rightInput = rightRateLimiter.calculate(MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS));
+        double throttleAdjustment = xBoxController.getRightTriggerAxis() - xBoxController.getLeftTriggerAxis();
+        leftInput = leftRateLimiter.calculate(
+                MathUtil.clamp(
+                        MathUtil.applyDeadband(leftInput, Constants.DEADZONE_RADIUS) + throttleAdjustment,
+                        -1, 1
+                )
+        );
+        rightInput = rightRateLimiter.calculate(
+                MathUtil.clamp(
+                        MathUtil.applyDeadband(rightInput, Constants.DEADZONE_RADIUS) + throttleAdjustment,
+                        -1, 1
+                )
+        );
 
         drivetrain.drive(leftInput, rightInput);
     }
