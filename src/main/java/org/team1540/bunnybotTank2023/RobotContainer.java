@@ -57,7 +57,8 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
         shooter.setDefaultCommand(new StartEndCommand(
                 () -> shooter.setVelocity(ShooterConstants.SHOOTER_IDLE_RPM),
-                () -> shooter.stop()
+                () -> shooter.stop(),
+                shooter
         ));
     }
 
