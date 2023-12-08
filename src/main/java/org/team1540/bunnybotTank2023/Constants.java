@@ -63,6 +63,7 @@ public final class Constants {
         public static final double KV = 0.1149;
 
         public static final double ERROR_TOLERANCE_RPM = 30;
+        public static final double SHOOTER_IDLE_RPM = 1000;
 
         public static final double MOI = 0.0014924622;
 

@@ -6,9 +6,8 @@
 package org.team1540.bunnybotTank2023;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
@@ -17,6 +16,8 @@ import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSim;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOReal;
 import org.team1540.bunnybotTank2023.io.shooter.ShooterIOReal;
 import org.team1540.bunnybotTank2023.io.shooter.ShooterIOSim;
+
+import static org.team1540.bunnybotTank2023.Constants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,8 +33,6 @@ public class RobotContainer {
     // Controllers
     CommandXboxController driver = new CommandXboxController(0);
     CommandXboxController copilot = new CommandXboxController(1);
-
-    LoggedDashboardNumber shooterRPM = new LoggedDashboardNumber("shooterRPM", 0);
 
     public RobotContainer() {
         if (Robot.isReal()) {
@@ -52,11 +51,14 @@ public class RobotContainer {
     
     /** Use this method to define your trigger->command mappings. */
     private void configureButtonBindings() {
-        driver.a().onTrue(new InstantCommand(() -> shooter.setVelocity(shooterRPM.get()))).onFalse(new InstantCommand(() -> shooter.stop()));
     }
 
     private void setDefaultCommands() {
         drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
+        shooter.setDefaultCommand(new StartEndCommand(
+                () -> shooter.setVelocity(ShooterConstants.SHOOTER_IDLE_RPM),
+                () -> shooter.stop()
+        ));
     }
 
 
