@@ -45,13 +45,11 @@ public final class Constants {
     }
 
     public static class IntakeConstants {
-        // fix later
-        public static final int SOLENOID_1_PORT_NUMBER = 1;
+        public static final int SOLENOID_PORT_NUMBER = 1;
         public static final int MOTOR_ID = 5;
     }
 
     public static class IndexerConstants {
-        // fix later
         public static final int TOP_MOTOR_ID = 6;
         public static final int BOTTOM_MOTOR_ID = 7;
     }

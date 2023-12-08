@@ -7,9 +7,11 @@ public interface IntakeIO {
     class IntakeInputs {
         public double motorVelocity = 0;
         public double motorAppliedVolts = 0;
-        public double[] motorCurrentAmps = new double[2];
+        public double motorCurrentAmps = 0;
         public boolean folded = false;
     }
+
+    void updateInputs(IntakeInputs inputs);
 
     void setPercent(double percent);
 
