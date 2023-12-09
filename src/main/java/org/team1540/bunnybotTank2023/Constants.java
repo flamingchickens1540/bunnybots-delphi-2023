@@ -42,4 +42,11 @@ public final class Constants {
         public static final int BACK_LEFT_ID = 3;
         public static final int BACK_RIGHT_ID = 4;
     }
+
+    public static class TurretConstants{
+        public static final int MOTOR_ID = 0; //TODO: FIGURE OUT CAN ID!!!!!
+        public static final double kP = 20;
+        public static final double kI = 0;
+        public static final double kD = 0.1;
+    }
 }
