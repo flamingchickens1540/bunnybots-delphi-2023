@@ -1,11 +1,5 @@
 package org.team1540.bunnybotTank2023;
 
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
@@ -66,29 +60,5 @@ public final class Constants {
         public static final double SHOOTER_IDLE_RPM = 1000;
 
         public static final double MOI = 0.0014924622;
-
-        public static final TalonFXConfiguration MOTOR_CONFIG = new TalonFXConfiguration();
-        static {
-            MotorOutputConfigs outputConfigs = new MotorOutputConfigs();
-            outputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
-            outputConfigs.NeutralMode = NeutralModeValue.Coast;
-
-            CurrentLimitsConfigs currentLimitConfigs = new CurrentLimitsConfigs();
-            currentLimitConfigs.SupplyCurrentLimitEnable = true;
-            currentLimitConfigs.SupplyCurrentLimit = 40;
-            currentLimitConfigs.SupplyCurrentThreshold = 60;
-            currentLimitConfigs.SupplyTimeThreshold = 0.1;
-
-            Slot0Configs pidConfigs = new Slot0Configs();
-            pidConfigs.kP = KP;
-            pidConfigs.kI = KI;
-            pidConfigs.kD = KD;
-            pidConfigs.kS = KS;
-            pidConfigs.kV = KV;
-
-            MOTOR_CONFIG.MotorOutput = outputConfigs;
-            MOTOR_CONFIG.CurrentLimits = currentLimitConfigs;
-            MOTOR_CONFIG.Slot0 = pidConfigs;
-        }
     }
 }

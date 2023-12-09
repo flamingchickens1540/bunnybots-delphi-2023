@@ -6,6 +6,7 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import org.team1540.bunnybotTank2023.CTREConfigs;
 
 import static org.team1540.bunnybotTank2023.Constants.*;
 
@@ -19,8 +20,8 @@ public class ShooterIOReal implements ShooterIO{
     private final StatusSignal<Double> current = leftMotor.getSupplyCurrent();
 
     public ShooterIOReal() {
-        leftMotor.getConfigurator().apply(ShooterConstants.MOTOR_CONFIG);
-        rightMotor.getConfigurator().apply(ShooterConstants.MOTOR_CONFIG);
+        leftMotor.getConfigurator().apply(CTREConfigs.shooterMotorConfig);
+        rightMotor.getConfigurator().apply(CTREConfigs.shooterMotorConfig);
         rightMotor.setControl(new Follower(ShooterConstants.LEADER_ID, true));
     }
 
