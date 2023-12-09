@@ -19,6 +19,9 @@ public class ShooterIOReal implements ShooterIO{
     private final StatusSignal<Double> dutyCycle = leftMotor.getDutyCycle();
     private final StatusSignal<Double> current = leftMotor.getSupplyCurrent();
 
+    private final VelocityVoltage velocityControlRequest = new VelocityVoltage(0).withSlot(0);
+    private final VoltageOut voltageControlRequest = new VoltageOut(0);
+
     public ShooterIOReal() {
         leftMotor.getConfigurator().apply(CTREConfigs.shooterMotorConfig);
         rightMotor.getConfigurator().apply(CTREConfigs.shooterMotorConfig);
@@ -34,13 +37,12 @@ public class ShooterIOReal implements ShooterIO{
 
     @Override
     public void setVoltage(double volts) {
-        leftMotor.setControl(new VoltageOut(volts));
+        leftMotor.setControl(voltageControlRequest.withOutput(volts));
     }
 
     @Override
     public void setVelocity(double speedRPM) {
-        leftMotor.setControl(new VelocityVoltage(speedRPM / 60));
-        System.out.println("setting rpm");
+        leftMotor.setControl(velocityControlRequest.withVelocity(speedRPM / 60));
     }
 
     @Override
