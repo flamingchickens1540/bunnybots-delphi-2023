@@ -21,7 +21,6 @@ public class Shooter extends SubsystemBase {
     private final AverageFilter averageFilter = new AverageFilter(20); // TODO: 11/28/2023 tune filter size
 
     private double setpoint = 0;
-    private boolean isClosedLoop = false;
 
     public Shooter(ShooterIO io) {
         this.io = io;
@@ -43,13 +42,11 @@ public class Shooter extends SubsystemBase {
 
     public void setVelocity(double speedRPM) {
         setpoint = speedRPM;
-        isClosedLoop = true;
         averageFilter.clear();
         io.setVelocity(speedRPM);
     }
 
     public void setVoltage(double volts) {
-        isClosedLoop = false;
         io.setVoltage(volts);
     }
 
@@ -58,7 +55,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isAtSetpoint() {
-        if (!isClosedLoop) return false;
         return Math.abs(averageFilter.getAverage() - setpoint) < ShooterConstants.ERROR_TOLERANCE_RPM;
     }
 }
