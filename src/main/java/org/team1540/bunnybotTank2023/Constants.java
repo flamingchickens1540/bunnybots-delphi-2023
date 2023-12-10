@@ -50,7 +50,8 @@ public final class Constants {
     }
 
     public static class IndexerConstants {
-        public static final int TOP_MOTOR_ID = 6;
-        public static final int BOTTOM_MOTOR_ID = 7;
+        public static final int TOP_MOTOR_1_ID = 6;
+        public static final int TOP_MOTOR_2_ID = 7;
+        public static final int BOTTOM_MOTOR_ID = 8;
     }
 }

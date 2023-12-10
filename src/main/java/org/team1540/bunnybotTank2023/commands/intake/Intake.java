@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase {
         Logger.getInstance().processInputs("Intake", inputs);
     }
 
-    public void changeSolenoidOutput(boolean output) {
+    public void setFold(boolean output) {
         io.setFold(output);
     }
 

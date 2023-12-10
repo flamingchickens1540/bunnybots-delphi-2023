@@ -5,9 +5,12 @@ import org.littletonrobotics.junction.AutoLog;
 public interface IndexerIO {
     @AutoLog
     class IndexerInputs {
-        public double topMotorVelocity = 0;
-        public double topMotorAppliedVolts = 0;
-        public double topMotorCurrentAmps = 0;
+        public double topMotor1Velocity = 0;
+        public double topMotor1AppliedVolts = 0;
+        public double topMotor1CurrentAmps = 0;
+        public double topMotor2Velocity = 0;
+        public double topMotor2AppliedVolts = 0;
+        public double topMotor2CurrentAmps = 0;
         public double bottomMotorVelocity = 0;
         public double bottomMotorAppliedVolts = 0;
         public double bottomMotorCurrentAmps = 0;
