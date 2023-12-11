@@ -6,12 +6,18 @@
 package org.team1540.bunnybotTank2023;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
+import org.team1540.bunnybotTank2023.commands.shooter.Shooter;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSim;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOReal;
+import org.team1540.bunnybotTank2023.io.shooter.ShooterIOReal;
+import org.team1540.bunnybotTank2023.io.shooter.ShooterIOSim;
+
+import static org.team1540.bunnybotTank2023.Constants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,6 +28,7 @@ import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOReal;
 public class RobotContainer {
     // Subsystems
     Drivetrain drivetrain;
+    Shooter shooter;
 
     // Controllers
     CommandXboxController driver = new CommandXboxController(0);
@@ -31,9 +38,11 @@ public class RobotContainer {
         if (Robot.isReal()) {
             // Initialize subsystems with hardware IO
             drivetrain = new Drivetrain(new DrivetrainIOReal());
+            shooter = new Shooter(new ShooterIOReal());
         } else {
             // Initialize subsystems with simulation IO
             drivetrain = new Drivetrain(new DrivetrainIOSim());
+            shooter = new Shooter(new ShooterIOSim());
         }
         setDefaultCommands();
         configureButtonBindings();
@@ -42,11 +51,15 @@ public class RobotContainer {
     
     /** Use this method to define your trigger->command mappings. */
     private void configureButtonBindings() {
-
     }
 
     private void setDefaultCommands() {
         drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
+        shooter.setDefaultCommand(new StartEndCommand(
+                () -> shooter.setVelocity(ShooterConstants.SHOOTER_IDLE_RPM),
+                () -> shooter.stop(),
+                shooter
+        ));
     }
 
 

@@ -3,6 +3,9 @@ package org.team1540.bunnybotTank2023;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
+    // Allow PID constants to be tuned from a dashboard input or not
+    public static final boolean TUNING_MODE = true;
+
     // Simulation mode, irrelevant for code running on physical robot
     public static final SimulationMode simulationMode = SimulationMode.SIM;
 
@@ -41,5 +44,21 @@ public final class Constants {
         public static final int FRONT_RIGHT_ID = 2;
         public static final int BACK_LEFT_ID = 3;
         public static final int BACK_RIGHT_ID = 4;
+    }
+
+    public static class ShooterConstants {
+        public static final int LEADER_ID = 20;
+        public static final int FOLLOWER_ID = 21;
+
+        public static final double KP = 0.6; // TODO: 11/30/2023 tuned, doesn't work well for values < 1000 rpm
+        public static final double KI = 0.07;
+        public static final double KD = 0;
+        public static final double KS = 0.19;
+        public static final double KV = 0.1149;
+
+        public static final double ERROR_TOLERANCE_RPM = 30;
+        public static final double SHOOTER_IDLE_RPM = 1000;
+
+        public static final double MOI = 0.0014924622;
     }
 }
