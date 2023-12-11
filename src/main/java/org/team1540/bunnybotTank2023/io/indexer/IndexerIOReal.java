@@ -13,17 +13,15 @@ public class IndexerIOReal implements IndexerIO {
         topMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
         bottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-        topMotor1.setSecondaryCurrentLimit(30);
-        topMotor2.setSecondaryCurrentLimit(30);
-        bottomMotor.setSecondaryCurrentLimit(30);
+        topMotor1.setSmartCurrentLimit(30);
+        topMotor2.setSmartCurrentLimit(30);
+        bottomMotor.setSmartCurrentLimit(30);
 
         topMotor2.follow(topMotor1);
 
         topMotor1.setInverted(false);
-        topMotor2.setInverted(false);
-        bottomMotor.setInverted(false);
-
-        // which of these motors needs to be inverted?
+        topMotor2.setInverted(true);
+        bottomMotor.setInverted(true);
     }
 
     @Override
