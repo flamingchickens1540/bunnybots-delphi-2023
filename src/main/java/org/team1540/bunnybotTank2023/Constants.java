@@ -44,6 +44,18 @@ public final class Constants {
         public static final int FRONT_RIGHT_ID = 2;
         public static final int BACK_LEFT_ID = 3;
         public static final int BACK_RIGHT_ID = 4;
+
+    }
+
+    public static class IntakeConstants {
+        public static final int SOLENOID_PORT_NUMBER = 1;
+        public static final int MOTOR_ID = 5;
+    }
+
+    public static class IndexerConstants {
+        public static final int TOP_MOTOR_1_ID = 6;
+        public static final int TOP_MOTOR_2_ID = 7;
+        public static final int BOTTOM_MOTOR_ID = 8;
     }
 
     public static class ShooterConstants {
