@@ -74,4 +74,12 @@ public final class Constants {
 
         public static final double MOI = 0.0014924622;
     }
+
+    public static class TurretConstants{
+        public static final int MOTOR_ID = 9; //TODO: MAKE SURE THIS CAN ID WORKS!!!
+        public static final double kP = 3.2;
+        public static final double kI = 0;
+        public static final double kD = 0.1;
+        public static final double gearRatio = 166.66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666667;
+    }
 }
