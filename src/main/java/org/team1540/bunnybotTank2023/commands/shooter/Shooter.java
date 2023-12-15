@@ -41,6 +41,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setVelocity(double speedRPM) {
+        System.out.println("test");
         setpoint = speedRPM;
         averageFilter.clear();
         io.setVelocity(speedRPM);

@@ -63,11 +63,11 @@ public final class Constants {
         public static final int LEADER_ID = 20;
         public static final int FOLLOWER_ID = 21;
 
-        public static final double KP = 0.6; // TODO: 11/30/2023 tuned, doesn't work well for values < 1000 rpm
-        public static final double KI = 0.07;
+        public static final double KP = 0.4; // TODO: 11/30/2023 tuned, doesn't work well for values < 1000 rpm
+        public static final double KI = 0.05;
         public static final double KD = 0;
-        public static final double KS = 0.19;
-        public static final double KV = 0.1149;
+        public static final double KS = 0;
+        public static final double KV = 0.113;
 
         public static final double ERROR_TOLERANCE_RPM = 30;
         public static final double SHOOTER_IDLE_RPM = 1000;

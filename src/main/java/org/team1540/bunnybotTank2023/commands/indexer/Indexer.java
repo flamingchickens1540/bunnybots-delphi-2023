@@ -26,4 +26,9 @@ public class Indexer extends SubsystemBase {
     public void setBottomSpeed(double speed) {
         io.setBottomPercent(speed);
     }
+
+    public void stop() {
+        setTopSpeed(0);
+        setBottomSpeed(0);
+    }
 }
