@@ -11,8 +11,8 @@ public class IndexerCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        indexer.setBottomSpeed(0.75);
-        indexer.setTopSpeed(0.75);
+        indexer.setBottomSpeed(0.50);
+        indexer.setTopSpeed(1);
     }
 
     @Override

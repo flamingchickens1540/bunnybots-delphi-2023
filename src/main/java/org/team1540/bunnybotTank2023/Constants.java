@@ -48,8 +48,8 @@ public final class Constants {
     }
 
     public static class IntakeConstants {
-        public static final int SOLENOID_1_PORT_NUMBER = 1;
-        public static final int SOLENOID_2_PORT_NUMBER = 2;
+        public static final int SOLENOID_1_PORT_NUMBER = 4;
+        public static final int SOLENOID_2_PORT_NUMBER = 7;
         public static final int MOTOR_ID = 5;
     }
 

@@ -16,7 +16,7 @@ public class Indexer extends SubsystemBase {
     }
     public void periodic() {
         io.updateInputs(inputs);
-        Logger.getInstance().processInputs("Intake", inputs);
+        Logger.getInstance().processInputs("Indexer", inputs);
     }
 
     public void setTopSpeed(double speed) {

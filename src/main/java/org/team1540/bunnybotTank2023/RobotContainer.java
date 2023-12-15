@@ -6,6 +6,7 @@
 package org.team1540.bunnybotTank2023;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -15,10 +16,13 @@ import org.team1540.bunnybotTank2023.commands.drivetrain.ArcadeDriveCommand;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 import org.team1540.bunnybotTank2023.commands.indexer.Indexer;
 import org.team1540.bunnybotTank2023.commands.indexer.IndexerCommand;
+import org.team1540.bunnybotTank2023.commands.intake.Intake;
+import org.team1540.bunnybotTank2023.commands.intake.IntakeCommand;
 import org.team1540.bunnybotTank2023.commands.shooter.Shooter;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOSim;
 import org.team1540.bunnybotTank2023.io.drivetrain.DrivetrainIOReal;
 import org.team1540.bunnybotTank2023.io.indexer.IndexerIOReal;
+import org.team1540.bunnybotTank2023.io.intake.IntakeIOReal;
 import org.team1540.bunnybotTank2023.io.shooter.ShooterIOReal;
 import org.team1540.bunnybotTank2023.io.shooter.ShooterIOSim;
 
@@ -35,6 +39,7 @@ public class RobotContainer {
     Drivetrain drivetrain;
     Shooter shooter;
     Indexer indexer;
+    Intake intake;
 
     // Controllers
     CommandXboxController driver = new CommandXboxController(0);
@@ -48,11 +53,13 @@ public class RobotContainer {
             drivetrain = new Drivetrain(new DrivetrainIOReal());
             shooter = new Shooter(new ShooterIOReal());
             indexer = new Indexer(new IndexerIOReal());
+            intake = new Intake(new IntakeIOReal());
         } else {
             // Initialize subsystems with simulation IO
             drivetrain = new Drivetrain(new DrivetrainIOSim());
             shooter = new Shooter(new ShooterIOSim());
             indexer = null;
+            intake = null;
         }
         setDefaultCommands();
         configureButtonBindings();
@@ -69,7 +76,10 @@ public class RobotContainer {
                     indexer.stop();
                 }));
 
-        copilot.b().whileTrue(new IndexerCommand(indexer));
+//        copilot.b().whileTrue(new InstantCommand(() -> intake.setFold(false)).andThen(new IndexerCommand(indexer))).whileFalse(new InstantCommand(() -> intake.setFold(true)));
+        copilot.b().whileTrue(Commands.parallel(new IntakeCommand(intake), new IndexerCommand(indexer)));
+
+//        copilot.x().onTrue(new InstantCommand(() -> intake.setFold(false))).onFalse(new InstantCommand(() -> intake.setFold(true)));
     }
 
     private void setDefaultCommands() {
