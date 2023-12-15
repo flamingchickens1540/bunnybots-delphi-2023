@@ -1,35 +1,33 @@
 package org.team1540.bunnybotTank2023.io.turret;
 
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.*;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.ForwardLimitValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.ReverseLimitValue;
 import edu.wpi.first.math.geometry.Rotation2d;
-import org.team1540.bunnybotTank2023.Constants;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.signals.InvertedValue;
+import org.team1540.bunnybotTank2023.utils.Conversions;
+
+import static org.team1540.bunnybotTank2023.Constants.*;
 
 public class TurretIOReal implements TurretIO {
 
     // fields ^-^
-    private final TalonFX motor = new TalonFX(Constants.TurretConstants.MOTOR_ID);
+    private final TalonFX motor = new TalonFX(TurretConstants.MOTOR_ID);
     private final PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0);
+    private final MotionMagicVoltage MMVoltage = new MotionMagicVoltage(0).withSlot(0);
     private Rotation2d setPosition = new Rotation2d();
 
     // constructor
-    TurretIOReal() {
+    public TurretIOReal() {
         // robot init, set slot 0 gains
-        var slot0Configs = new Slot0Configs();
-        slot0Configs.kP = Constants.TurretConstants.kP;
-        slot0Configs.kI = Constants.TurretConstants.kI;
-        slot0Configs.kD = Constants.TurretConstants.kD;
-
-        motor.getConfigurator().apply(slot0Configs, 0.050);
-
-        positionVoltage.Slot = 0;
+        Slot0Configs slot0Configs = new Slot0Configs();
+        slot0Configs.kP = TurretConstants.kP;
+        slot0Configs.kI = TurretConstants.kI;
+        slot0Configs.kD = TurretConstants.kD;
 
         // Current Limits
         CurrentLimitsConfigs turretCurrentLimit = new CurrentLimitsConfigs();
@@ -40,10 +38,22 @@ public class TurretIOReal implements TurretIO {
 
         // Motor Inversion
         MotorOutputConfigs turretOutput = new MotorOutputConfigs();
-        turretOutput.Inverted = InvertedValue.Clockwise_Positive;
+        turretOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         // Brake Mode
         turretOutput.NeutralMode = NeutralModeValue.Brake;
+
+        MotionMagicConfigs turretMotionMagic = new MotionMagicConfigs();
+        turretMotionMagic.MotionMagicAcceleration = TurretConstants.MAX_ACCEL_RPS2;
+        turretMotionMagic.MotionMagicCruiseVelocity = TurretConstants.CRUISE_VELOCITY_RPS;
+
+        TalonFXConfiguration motorConfig = new TalonFXConfiguration();
+        motorConfig.Slot0 = slot0Configs;
+        motorConfig.CurrentLimits = turretCurrentLimit;
+        motorConfig.MotorOutput = turretOutput;
+        motorConfig.MotionMagic = turretMotionMagic;
+
+        motor.getConfigurator().apply(motorConfig);
     }
 
     // sets the voltage
@@ -56,15 +66,30 @@ public class TurretIOReal implements TurretIO {
     @Override
     public void setTurretPosition(Rotation2d position) {
         // using the gear ratio to convert from motor rotations to mechanism rotations
-        motor.setControl(positionVoltage.withPosition(position.getRotations()/Constants.TurretConstants.gearRatio));
+        motor.setControl(MMVoltage.withPosition(Conversions.Rotation2dToMotorRots(position, TurretConstants.gearRatio)));
         setPosition = position;
     }
 
     @Override
+    public void resetEncoder(Rotation2d position) {
+        motor.setRotorPosition(Conversions.Rotation2dToMotorRots(position, TurretConstants.gearRatio));
+    }
+
+    @Override
+    public void configurePID(double kP, double kI, double kD) {
+        Slot0Configs pidConfigs = new Slot0Configs();
+        motor.getConfigurator().refresh(pidConfigs);
+        pidConfigs.kP = kP;
+        pidConfigs.kI = kI;
+        pidConfigs.kD = kD;
+        motor.getConfigurator().apply(pidConfigs);
+    }
+
+    @Override
     public void updateInputs(TurretInputs inputs) {
-        inputs.motorVelocityRPM = motor.getVelocity().getValue();
-        inputs.motorCurrentPositionDegrees = motor.getPosition().getValue() * 360;
-        inputs.SetPointDegrees = setPosition.getRotations() * 360;
+        inputs.motorVelocityRPS = motor.getVelocity().getValue();
+        inputs.turretCurrentPositionDegrees = Conversions.motorRotsToRotation2d(motor.getPosition().getValue(), TurretConstants.gearRatio).getDegrees();
+        inputs.turretSetPointDegrees = setPosition.getDegrees();
         inputs.motorCurrentAmps = motor.getSupplyCurrent().getValue();
         inputs.motorVoltage = motor.getSupplyVoltage().getValue();
         inputs.forwardLimitSwitch = (motor.getForwardLimit().getValue() == ForwardLimitValue.ClosedToGround);

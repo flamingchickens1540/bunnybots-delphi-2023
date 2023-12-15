@@ -1,10 +1,11 @@
 package org.team1540.bunnybotTank2023;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
     // Allow PID constants to be tuned from a dashboard input or not
-    public static final boolean TUNING_MODE = true;
+    public static final boolean TUNING_MODE = false;
 
     // Simulation mode, irrelevant for code running on physical robot
     public static final SimulationMode simulationMode = SimulationMode.SIM;
@@ -76,10 +77,16 @@ public final class Constants {
     }
 
     public static class TurretConstants{
-        public static final int MOTOR_ID = 9; //TODO: MAKE SURE THIS CAN ID WORKS!!!
-        public static final double kP = 3.2;
+        public static final int MOTOR_ID = 10; //TODO: MAKE SURE THIS CAN ID WORKS!!!
+        public static final double kP = 3.636;
         public static final double kI = 0;
-        public static final double kD = 0.1;
+        public static final double kD = 0;
         public static final double gearRatio = 166.66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666667;
+
+        public static final double CRUISE_VELOCITY_RPS = 100;
+        public static final double MAX_ACCEL_RPS2 = 600;
+
+        public static final Rotation2d FORWARD_LIMIT_POSITION = Rotation2d.fromDegrees(66.064);
+        public static final Rotation2d REVERSE_LIMIT_POSITION = Rotation2d.fromDegrees(150);
     }
 }
