@@ -9,11 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import org.littletonrobotics.junction.networktables.LoggedDashboardInput;
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
+import org.team1540.bunnybotTank2023.commands.drivetrain.ArcadeDriveCommand;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
-import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
 import org.team1540.bunnybotTank2023.commands.indexer.Indexer;
 import org.team1540.bunnybotTank2023.commands.indexer.IndexerCommand;
 import org.team1540.bunnybotTank2023.commands.shooter.Shooter;
@@ -62,7 +61,7 @@ public class RobotContainer {
     
     /** Use this method to define your trigger->command mappings. */
     private void configureButtonBindings() {
-        driver.a()
+        copilot.a()
                 .whileTrue(new InstantCommand(() -> shooter.setVelocity(shooterSpeed.get()))
                         .andThen(new IndexerCommand(indexer)))
                 .onFalse(new InstantCommand(() -> {
@@ -70,11 +69,11 @@ public class RobotContainer {
                     indexer.stop();
                 }));
 
-        driver.b().whileTrue(new IndexerCommand(indexer));
+        copilot.b().whileTrue(new IndexerCommand(indexer));
     }
 
     private void setDefaultCommands() {
-//        drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
+        drivetrain.setDefaultCommand(new ArcadeDriveCommand(drivetrain, driver));
         shooter.setDefaultCommand(new StartEndCommand(
                 () -> shooter.setVelocity(ShooterConstants.SHOOTER_IDLE_RPM),
                 () -> {},
