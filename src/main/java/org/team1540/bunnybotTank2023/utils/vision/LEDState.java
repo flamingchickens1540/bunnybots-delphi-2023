@@ -13,7 +13,7 @@ public enum LEDState {
     /* LEDs on */
     ON(3);
 
-    private final int value;
+    public final int value;
 
     LEDState(int value) {
         this.value = value;

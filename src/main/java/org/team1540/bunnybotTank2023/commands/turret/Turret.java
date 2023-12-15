@@ -50,6 +50,10 @@ public class Turret extends SubsystemBase {
         return Math.abs(inputs.turretSetPointDegrees - averageFilter.getAverage()) < 0.5;
     }
 
+    public Rotation2d getPosition() {
+        return Rotation2d.fromDegrees(inputs.turretCurrentPositionDegrees);
+    }
+
     public void resetToEncoder(Rotation2d position) {
         io.resetEncoder(position);
     }

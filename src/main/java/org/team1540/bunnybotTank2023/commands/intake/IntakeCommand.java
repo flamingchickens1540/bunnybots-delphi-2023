@@ -12,7 +12,7 @@ public class IntakeCommand extends CommandBase {
     @Override
     public void initialize() {
         intake.setFold(false);
-        intake.setMotorSpeed(0.5);
+        intake.setMotorSpeed(1);
     }
 
     @Override
