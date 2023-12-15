@@ -12,8 +12,8 @@ public class Turret extends SubsystemBase {
     private final TurretIO io;
 
     //constructor
-    public Turret(TurretIO argIO){
-        io = argIO;
+    public Turret(TurretIO io){
+        this.io = io;
     }
 
     //periodic
