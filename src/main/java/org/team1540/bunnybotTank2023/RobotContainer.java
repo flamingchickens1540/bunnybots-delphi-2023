@@ -90,7 +90,7 @@ public class RobotContainer {
         copilot.b().whileTrue(new IntakeCommand(intake, -1));
 
         copilot.y().whileTrue(new TurretZeroSequenceCommand(turret));
-        copilot.x().whileTrue(new AutoAimShoot5(turret, shooter, indexer, limelight));
+        copilot.x().whileTrue(new InstantCommand(intake::stop));
         copilot.leftBumper().whileTrue(new TurretSetpointCommand(turret, Rotation2d.fromDegrees(0)));
         copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, Constants.ShooterConstants.SHOOTER_ACTIVE_RPM));
         copilot.leftTrigger().whileTrue(new TurretTrackTargetCommand(turret, limelight));
