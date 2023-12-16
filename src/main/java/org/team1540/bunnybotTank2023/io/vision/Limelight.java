@@ -25,7 +25,7 @@ public class Limelight extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.getInstance().processInputs("Limelight", inputs);
 
-
+        //Use this to change targeting priority
         if(getTv()) target = bestTargetCentral();
 
         Logger.getInstance().recordOutput("Limelight/targetDistance", getDistance());
