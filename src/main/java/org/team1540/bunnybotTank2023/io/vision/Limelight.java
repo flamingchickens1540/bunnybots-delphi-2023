@@ -10,9 +10,9 @@ public class Limelight extends SubsystemBase {
     private final LimelightIOInputsAutoLogged inputs = new LimelightIOInputsAutoLogged();
     private double[] target;
 
-    private final double mountingAngleDegrees = 10.0;
-    private final double limelightLensHeightInches = 20.0;//TODO Find this
-    private final double goalHeightInches = 25.0;//TODO Find this
+    private final double mountingAngleDegrees = 21.0;
+    private final double limelightLensHeightInches = 29.0;//TODO Find this
+    private final double goalHeightInches = 49.5;//TODO Find this
     private static final double HORIZONTAL_FOV = Math.toRadians(63.3);
     private static final double VERTICAL_FOV = Math.toRadians(49.7);
 
@@ -40,11 +40,11 @@ public class Limelight extends SubsystemBase {
     }
 
     public double getTx() {
-        if(getTv()) return target[3];
+        if(getTv()) return -target[3];
         return 0;
     }
     public double getTx(double[] target){
-        return target[3];
+        return -target[3];
     }
 
     public double getTy() {

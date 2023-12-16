@@ -12,14 +12,14 @@ public class LimelightIOReal implements LimelightIO{
 
     LimelightHelpers.LimelightResults limelightResults;
     public LimelightIOReal(){
-        LimelightHelpers.setPipelineIndex("limelight-rear",9);
+        LimelightHelpers.setPipelineIndex("limelight-front",9);
         LimelightHelpers.setLEDMode_PipelineControl("");
     }
 
     @Override
     public void updateInputs(LimelightIOInputs inputs) {
         validTargets.clear();
-        limelightResults = LimelightHelpers.getLatestResults("limelight-rear");
+        limelightResults = LimelightHelpers.getLatestResults("limelight-front");
         inputs.validTarget = limelightResults.targetingResults.valid;
         inputs.captureLatencyMs = limelightResults.targetingResults.latency_capture;
         inputs.pipelineLatencyMs = limelightResults.targetingResults.latency_pipeline;

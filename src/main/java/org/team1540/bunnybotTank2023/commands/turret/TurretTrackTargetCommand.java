@@ -16,9 +16,15 @@ public class TurretTrackTargetCommand extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+        Rotation2d turretSetpoint = Rotation2d.fromDegrees(limelight.getTx()).plus(turret.getPosition());
+        if (limelight.getTv()) turret.autoSetPosition(turretSetpoint);
+    }
+
+    @Override
     public void execute() {
         Rotation2d turretSetpoint = Rotation2d.fromDegrees(limelight.getTx()).plus(turret.getPosition());
-        turret.autoSetPosition(turretSetpoint);
+        if (limelight.getTv() && turret.isAtSetpoint()) turret.autoSetPosition(turretSetpoint);
     }
 
     @Override

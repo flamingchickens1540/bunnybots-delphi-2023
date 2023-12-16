@@ -16,7 +16,7 @@ public class Turret extends SubsystemBase {
     private final TurretInputsAutoLogged inputs = new TurretInputsAutoLogged();
     private final TurretIO io;
 
-    private final AverageFilter averageFilter = new AverageFilter(20);
+    private final AverageFilter averageFilter = new AverageFilter(10);
 
     private final LoggedTunableNumber kP = new LoggedTunableNumber("Turret/kP", TurretConstants.kP);
     private final LoggedTunableNumber kI = new LoggedTunableNumber("Turret/kI", TurretConstants.kI);

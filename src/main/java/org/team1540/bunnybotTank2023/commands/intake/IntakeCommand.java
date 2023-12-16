@@ -18,6 +18,6 @@ public class IntakeCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         intake.setFold(true);
-        intake.stop();
+        intake.setMotorSpeed(0.5);
     }
 }

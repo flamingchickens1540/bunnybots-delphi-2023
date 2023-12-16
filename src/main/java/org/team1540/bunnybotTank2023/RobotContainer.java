@@ -11,10 +11,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
+import org.team1540.bunnybotTank2023.commands.auto.TestAuto;
 import org.team1540.bunnybotTank2023.commands.drivetrain.ArcadeDriveCommand;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
+import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
 import org.team1540.bunnybotTank2023.commands.indexer.Indexer;
 import org.team1540.bunnybotTank2023.commands.indexer.IndexerCommand;
 import org.team1540.bunnybotTank2023.commands.indexer.IndexerIdleCommand;
@@ -31,10 +34,7 @@ import org.team1540.bunnybotTank2023.io.shooter.ShooterIOReal;
 import org.team1540.bunnybotTank2023.io.shooter.ShooterIOSim;
 import org.team1540.bunnybotTank2023.io.turret.TurretIOReal;
 import org.team1540.bunnybotTank2023.io.vision.Limelight;
-import org.team1540.bunnybotTank2023.io.vision.LimelightIO;
 import org.team1540.bunnybotTank2023.io.vision.LimelightIOReal;
-
-import java.util.ArrayList;
 
 import static org.team1540.bunnybotTank2023.Constants.*;
 
@@ -52,6 +52,8 @@ public class RobotContainer {
     final Intake intake;
     final Turret turret;
     final Limelight limelight;
+
+    final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("AutoChooser");
 
     // Controllers
     CommandXboxController driver = new CommandXboxController(0);
@@ -77,7 +79,8 @@ public class RobotContainer {
             turret = null;
             limelight = null;
         }
-        setDefaultCommands();
+
+        initAutoChooser();
         configureButtonBindings();
     }
     
@@ -92,16 +95,17 @@ public class RobotContainer {
         );
 
         copilot.y().whileTrue(new TurretZeroSequenceCommand(turret));
-        copilot.a().onTrue(new InstantCommand( () -> intake.setFold(false))).onFalse(new InstantCommand(() -> intake.setFold(true)));
-        copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, 3000));
+        copilot.leftBumper().whileTrue(new TurretSetpointCommand(turret, Rotation2d.fromDegrees(0)));
+        copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, 2500));
+        copilot.leftTrigger().whileTrue(new TurretTrackTargetCommand(turret, limelight));
 
 //        copilot.x().onTrue(new InstantCommand(() -> intake.setFold(false))).onFalse(new InstantCommand(() -> intake.setFold(true)));
     }
 
-    private void setDefaultCommands() {
-        drivetrain.setDefaultCommand(new ArcadeDriveCommand(drivetrain, driver));
+    public void setTeleopDefaultCommands() {
+        drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
         shooter.setDefaultCommand(new StartEndCommand(
-                () -> shooter.setVelocity(ShooterConstants.SHOOTER_IDLE_RPM),
+                shooter::stop,
                 () -> {},
                 shooter
         ));
@@ -114,6 +118,24 @@ public class RobotContainer {
         ));
     }
 
+    public void setAutoDefaultCommands() {
+        drivetrain.removeDefaultCommand();
+        turret.removeDefaultCommand();
+//        indexer.setDefaultCommand(new IndexerIdleCommand(indexer));
+//        intake.setDefaultCommand(new StartEndCommand(
+//                () -> intake.setMotorSpeed(0.5),
+//                () -> {},
+//                intake
+//        ));
+        indexer.removeDefaultCommand();
+        intake.removeDefaultCommand();
+    }
+
+    private void initAutoChooser() {
+        autoChooser.addDefaultOption("ZeroTurret", new TurretZeroSequenceCommand(turret));
+        autoChooser.addOption("Forward1Meter", new TestAuto(drivetrain));
+    }
+
 
     
     /**
@@ -122,6 +144,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new AutoShoot5RamTotes(drivetrain);
+        return autoChooser.get();
     }
 }

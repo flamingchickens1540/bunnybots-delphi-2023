@@ -11,8 +11,8 @@ public class ArcadeDriveCommand extends CommandBase {
 
     private final CommandXboxController xBoxController;
 
-    private final SlewRateLimiter leftRateLimiter = new SlewRateLimiter(4);
-    private final SlewRateLimiter rightRateLimiter = new SlewRateLimiter(4);
+    private final SlewRateLimiter leftRateLimiter = new SlewRateLimiter(5);
+    private final SlewRateLimiter rightRateLimiter = new SlewRateLimiter(5);
 
     public ArcadeDriveCommand(Drivetrain drivetrain, CommandXboxController xBoxController) {
         this.drivetrain = drivetrain;
@@ -24,10 +24,10 @@ public class ArcadeDriveCommand extends CommandBase {
         double throttle = MathUtil.applyDeadband(-xBoxController.getLeftY(), Constants.DEADZONE_RADIUS);
         double turn = MathUtil.applyDeadband(xBoxController.getRightX(), Constants.DEADZONE_RADIUS);
         double left = leftRateLimiter.calculate(
-                MathUtil.clamp(throttle + turn,-1, 1)
+                MathUtil.clamp(throttle + turn,-0.75, 0.75)
         );
         double right  = rightRateLimiter.calculate(
-                MathUtil.clamp(throttle - turn, -1, 1)
+                MathUtil.clamp(throttle - turn, -0.75, 0.75)
         );
 
         drivetrain.drive(left, right);
