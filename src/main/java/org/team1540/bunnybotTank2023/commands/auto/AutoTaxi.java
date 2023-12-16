@@ -10,18 +10,20 @@ import org.team1540.bunnybotTank2023.utils.AutoCommand;
 
 import java.util.List;
 
-public class AutoLeftSideRamTotes extends AutoCommand {
-    public AutoLeftSideRamTotes(Drivetrain drivetrain, Turret turret) {
+public class AutoTaxi extends AutoCommand {
+    public AutoTaxi(Drivetrain drivetrain, Turret turret) {
         List<Command> pathCommands = getPathPlannerDriveCommandGroup(
                 drivetrain,
-                "LeftSideRamTotes",
+                "TaxiShoot5",
                 new PathConstraints[] {new PathConstraints(4, 2)},
                 true
         );
+
+        addRequirements(drivetrain);
         addCommands(
                 Commands.parallel(
                         pathCommands.get(0),
-                        new TurretZeroSequenceCommand(turret).asProxy()
+                        new TurretZeroSequenceCommand(turret)
                 )
         );
     }

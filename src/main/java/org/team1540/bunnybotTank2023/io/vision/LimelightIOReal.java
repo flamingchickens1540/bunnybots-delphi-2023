@@ -13,7 +13,7 @@ public class LimelightIOReal implements LimelightIO{
     LimelightHelpers.LimelightResults limelightResults;
     public LimelightIOReal(){
         LimelightHelpers.setPipelineIndex("limelight-front",9);
-        LimelightHelpers.setLEDMode_PipelineControl("");
+        LimelightHelpers.setLEDMode_ForceOn("limelight-front");
     }
 
     @Override

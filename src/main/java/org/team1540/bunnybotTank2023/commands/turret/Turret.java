@@ -3,7 +3,6 @@ package org.team1540.bunnybotTank2023.commands.turret;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
-import org.team1540.bunnybotTank2023.Constants;
 import org.team1540.bunnybotTank2023.io.turret.TurretInputsAutoLogged;
 import org.team1540.bunnybotTank2023.io.turret.TurretIO;
 import org.team1540.bunnybotTank2023.utils.AverageFilter;
@@ -60,6 +59,8 @@ public class Turret extends SubsystemBase {
 
     public void autoSetPosition(Rotation2d position){
         averageFilter.clear();
+        if (position.getDegrees() > TurretConstants.FORWARD_LIMIT_POSITION.getDegrees()) position = TurretConstants.FORWARD_LIMIT_POSITION;
+        if (position.getDegrees() < TurretConstants.REVERSE_LIMIT_POSITION.getDegrees()) position = TurretConstants.REVERSE_LIMIT_POSITION;
         io.setTurretPosition(position);
     }
 

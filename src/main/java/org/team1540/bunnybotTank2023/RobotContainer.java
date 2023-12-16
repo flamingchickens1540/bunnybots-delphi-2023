@@ -12,13 +12,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
-import org.team1540.bunnybotTank2023.commands.auto.AutoLeftSideRamTotes;
-import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
-import org.team1540.bunnybotTank2023.commands.auto.TestAuto;
+import org.team1540.bunnybotTank2023.commands.auto.*;
+import org.team1540.bunnybotTank2023.commands.auto.utilSequences.AutoAimShoot5;
 import org.team1540.bunnybotTank2023.commands.drivetrain.ArcadeDriveCommand;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
-import org.team1540.bunnybotTank2023.commands.drivetrain.TankdriveCommand;
 import org.team1540.bunnybotTank2023.commands.indexer.Indexer;
 import org.team1540.bunnybotTank2023.commands.indexer.IndexerCommand;
 import org.team1540.bunnybotTank2023.commands.indexer.IndexerIdleCommand;
@@ -36,8 +33,6 @@ import org.team1540.bunnybotTank2023.io.shooter.ShooterIOSim;
 import org.team1540.bunnybotTank2023.io.turret.TurretIOReal;
 import org.team1540.bunnybotTank2023.io.vision.Limelight;
 import org.team1540.bunnybotTank2023.io.vision.LimelightIOReal;
-
-import static org.team1540.bunnybotTank2023.Constants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -59,8 +54,6 @@ public class RobotContainer {
     // Controllers
     CommandXboxController driver = new CommandXboxController(0);
     CommandXboxController copilot = new CommandXboxController(1);
-
-    LoggedDashboardNumber turretSetpoint = new LoggedDashboardNumber("Turret/setpoint");
 
     public RobotContainer() {
         if (Robot.isReal()) {
