@@ -24,10 +24,10 @@ public class ArcadeDriveCommand extends CommandBase {
         double throttle = MathUtil.applyDeadband(-xBoxController.getLeftY(), Constants.DEADZONE_RADIUS);
         double turn = MathUtil.applyDeadband(xBoxController.getRightX(), Constants.DEADZONE_RADIUS);
         double left = leftRateLimiter.calculate(
-                MathUtil.clamp(throttle + turn,-0.75, 0.75)
+                MathUtil.clamp(throttle + turn,-1, 1)
         );
         double right  = rightRateLimiter.calculate(
-                MathUtil.clamp(throttle - turn, -0.75, 0.75)
+                MathUtil.clamp(throttle - turn, -1, 1)
         );
 
         drivetrain.drive(left, right);

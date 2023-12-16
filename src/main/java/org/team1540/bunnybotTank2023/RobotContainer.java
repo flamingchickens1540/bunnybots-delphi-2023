@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
+import org.team1540.bunnybotTank2023.commands.auto.AutoLeftSideRamTotes;
 import org.team1540.bunnybotTank2023.commands.auto.AutoShoot5RamTotes;
 import org.team1540.bunnybotTank2023.commands.auto.TestAuto;
 import org.team1540.bunnybotTank2023.commands.drivetrain.ArcadeDriveCommand;
@@ -96,14 +97,14 @@ public class RobotContainer {
 
         copilot.y().whileTrue(new TurretZeroSequenceCommand(turret));
         copilot.leftBumper().whileTrue(new TurretSetpointCommand(turret, Rotation2d.fromDegrees(0)));
-        copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, 2500));
+        copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, 3218));
         copilot.leftTrigger().whileTrue(new TurretTrackTargetCommand(turret, limelight));
 
 //        copilot.x().onTrue(new InstantCommand(() -> intake.setFold(false))).onFalse(new InstantCommand(() -> intake.setFold(true)));
     }
 
     public void setTeleopDefaultCommands() {
-        drivetrain.setDefaultCommand(new TankdriveCommand(drivetrain, driver));
+        drivetrain.setDefaultCommand(new ArcadeDriveCommand(drivetrain, driver));
         shooter.setDefaultCommand(new StartEndCommand(
                 shooter::stop,
                 () -> {},
@@ -134,6 +135,7 @@ public class RobotContainer {
     private void initAutoChooser() {
         autoChooser.addDefaultOption("ZeroTurret", new TurretZeroSequenceCommand(turret));
         autoChooser.addOption("Forward1Meter", new TestAuto(drivetrain));
+        autoChooser.addOption("LeftSideRamTotes", new AutoLeftSideRamTotes(drivetrain, turret));
     }
 
 

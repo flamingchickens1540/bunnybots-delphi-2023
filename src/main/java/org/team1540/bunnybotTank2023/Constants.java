@@ -23,7 +23,7 @@ public final class Constants {
 
     public static class DrivetrainConstants {
         public static final double GEAR_RATIO = 6.11;
-        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.973); // The drivetrain wheels have slightly different diameters, so we take the average
+        public static final double WHEEL_DIAMETER = Units.inchesToMeters(4); // The drivetrain wheels have slightly different diameters, so we take the average
         public static final double TRACK_WIDTH = Units.inchesToMeters(22.75);
 
         public static final double MASS = Units.lbsToKilograms(118); // TODO: 11/18/2023 omg its tem 118 teh robnots
