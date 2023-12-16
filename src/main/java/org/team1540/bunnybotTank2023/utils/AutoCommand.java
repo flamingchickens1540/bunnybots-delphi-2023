@@ -16,7 +16,7 @@ public abstract class AutoCommand extends SequentialCommandGroup {
 
     public Command getPathPlannerDriveCommand(Drivetrain drivetrain, String pathName, PathConstraints constraints, boolean resetToPath) {
         PathPlannerTrajectory trajectory = PathPlanner.loadPath(pathName, constraints);
-        return new PathPlannerDriveCommand(drivetrain, trajectory, resetToPath).asProxy();
+        return new PathPlannerDriveCommand(drivetrain, trajectory, resetToPath);
     }
 
     public List<Command> getPathPlannerDriveCommandGroup(

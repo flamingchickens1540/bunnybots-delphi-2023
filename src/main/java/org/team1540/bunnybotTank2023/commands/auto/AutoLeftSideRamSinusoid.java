@@ -20,25 +20,17 @@ public class AutoLeftSideRamSinusoid extends AutoCommand {
     public AutoLeftSideRamSinusoid(Drivetrain drivetrain, Indexer indexer, Turret turret, Shooter shooter, Limelight limelight) {
         List<Command> pathCommands = getPathPlannerDriveCommandGroup(
                 drivetrain,
-                "LeftSideRamTotes",
+                "LeftSideRamSinusoid",
                 new PathConstraints[]{new PathConstraints(4, 2), new PathConstraints(3, 2)},
                 true
         );
 
-        addRequirements(drivetrain, indexer, turret, shooter);
-
         addCommands(
-                Commands.deadline(
-                        Commands.parallel(
-                                pathCommands.get(0),
-                                new TurretZeroSequenceCommand(turret).asProxy()
-                        ),
-                        new IndexerIdleCommand(indexer).asProxy()
-                ),
                 Commands.parallel(
-                    pathCommands.get(1),
-                    new AutoAimShoot5(turret, shooter, indexer, limelight).asProxy()
-                )
+                        pathCommands.get(0),
+                        new TurretZeroSequenceCommand(turret).asProxy()
+                ),
+                pathCommands.get(1)
         );
     }
 }

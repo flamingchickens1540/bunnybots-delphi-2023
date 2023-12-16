@@ -87,11 +87,12 @@ public class RobotContainer {
                         new IndexerCommand(indexer)
                 )
         );
+        copilot.b().whileTrue(new IntakeCommand(intake, -1));
 
         copilot.y().whileTrue(new TurretZeroSequenceCommand(turret));
         copilot.x().whileTrue(new AutoAimShoot5(turret, shooter, indexer, limelight));
         copilot.leftBumper().whileTrue(new TurretSetpointCommand(turret, Rotation2d.fromDegrees(0)));
-        copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, 3218));
+        copilot.rightTrigger().onTrue(new ShootSequenceCommand(shooter, indexer, Constants.ShooterConstants.SHOOTER_ACTIVE_RPM));
         copilot.leftTrigger().whileTrue(new TurretTrackTargetCommand(turret, limelight));
 
 //        copilot.x().onTrue(new InstantCommand(() -> intake.setFold(false))).onFalse(new InstantCommand(() -> intake.setFold(true)));
@@ -130,8 +131,8 @@ public class RobotContainer {
         autoChooser.addDefaultOption("ZeroTurret", new TurretZeroSequenceCommand(turret));
         autoChooser.addOption("DoNothing", new InstantCommand());
         autoChooser.addOption("AutoTaxi", new AutoTaxi(drivetrain, turret));
-        autoChooser.addOption("LeftSideRamTotes", new AutoLeftSideRamTotesShoot5(drivetrain, indexer,  turret, shooter, limelight));
-        autoChooser.addOption("RightSideRamTotes", new AutoRightSideRamTotesShoot5(drivetrain, indexer,  turret, shooter, limelight));
+        autoChooser.addOption("LeftSideRamTotes", new AutoLeftSideRamTotes(drivetrain, indexer,  turret, shooter, limelight));
+        autoChooser.addOption("RightSideRamTotes", new AutoRightSideRamTotes(drivetrain, indexer,  turret, shooter, limelight));
         autoChooser.addOption("LeftSideRamSinusoid", new AutoLeftSideRamSinusoid(drivetrain, indexer, turret, shooter, limelight));
         autoChooser.addOption("RightSideRamSinusoid", new AutoRightSideRamSinusoid(drivetrain, indexer, turret, shooter, limelight));
         autoChooser.addOption("TaxiShoot5", new AutoTaxiShoot5(drivetrain, indexer, turret, shooter, limelight));

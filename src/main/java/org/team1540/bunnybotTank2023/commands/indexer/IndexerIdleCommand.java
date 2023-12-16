@@ -12,7 +12,7 @@ public class IndexerIdleCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        indexer.setBottomSpeed(0.4);
+        indexer.setBottomSpeed(0.3);
         indexer.setTopSpeed(-0.2);
     }
 }

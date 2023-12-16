@@ -71,7 +71,7 @@ public final class Constants {
         public static final double KV = 0.113;
 
         public static final double ERROR_TOLERANCE_RPM = 30;
-        public static final double SHOOTER_ACTIVE_RPM = 3218;
+        public static final double SHOOTER_ACTIVE_RPM = 2200;
 
         public static final double MOI = 0.0014924622;
     }
@@ -86,7 +86,7 @@ public final class Constants {
         public static final double CRUISE_VELOCITY_RPS = 100;
         public static final double MAX_ACCEL_RPS2 = 600;
 
-        public static final Rotation2d FORWARD_LIMIT_POSITION = Rotation2d.fromDegrees(66.064);
+        public static final Rotation2d FORWARD_LIMIT_POSITION = Rotation2d.fromDegrees(68.064);
         public static final Rotation2d REVERSE_LIMIT_POSITION = Rotation2d.fromDegrees(-180);
     }
 }

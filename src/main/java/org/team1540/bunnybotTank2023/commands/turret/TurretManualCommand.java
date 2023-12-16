@@ -17,7 +17,7 @@ public class TurretManualCommand extends CommandBase {
 
     @Override
     public void execute() {
-        turret.setVoltage(-MathUtil.applyDeadband(controller.getRightX(), Constants.DEADZONE_RADIUS) * 12.0);
+        turret.setVoltage(-0.75 * MathUtil.applyDeadband(controller.getRightX(), Constants.DEADZONE_RADIUS) * 12.0);
     }
 
     @Override

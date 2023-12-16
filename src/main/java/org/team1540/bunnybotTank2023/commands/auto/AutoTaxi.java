@@ -23,7 +23,7 @@ public class AutoTaxi extends AutoCommand {
         addCommands(
                 Commands.parallel(
                         pathCommands.get(0),
-                        new TurretZeroSequenceCommand(turret)
+                        new TurretZeroSequenceCommand(turret).asProxy()
                 )
         );
     }

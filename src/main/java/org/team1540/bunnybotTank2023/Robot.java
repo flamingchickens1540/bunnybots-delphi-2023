@@ -52,7 +52,7 @@ public class Robot extends LoggedRobot {
 
         // Setup data receivers and replay source
         if (isReal()) {
-            if (DriverStation.isFMSAttached()) new WPILOGWriter("/U");
+            logger.addDataReceiver(new WPILOGWriter("/U"));
             logger.addDataReceiver(new NT4Publisher());
         } else {
             if (Constants.simulationMode == Constants.SimulationMode.SIM) {
