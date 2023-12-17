@@ -3,11 +3,9 @@ package org.team1540.bunnybotTank2023.commands.auto;
 import com.pathplanner.lib.PathConstraints;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import org.team1540.bunnybotTank2023.commands.auto.utilSequences.AutoAimShoot5;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 import org.team1540.bunnybotTank2023.commands.indexer.Indexer;
-import org.team1540.bunnybotTank2023.commands.indexer.IndexerIdleCommand;
 import org.team1540.bunnybotTank2023.commands.shooter.Shooter;
 import org.team1540.bunnybotTank2023.commands.turret.Turret;
 import org.team1540.bunnybotTank2023.commands.turret.TurretZeroSequenceCommand;
@@ -28,7 +26,8 @@ public class AutoTaxiShoot5 extends AutoCommand {
                 Commands.parallel(
                         pathCommands.get(0),
                         new TurretZeroSequenceCommand(turret).asProxy()
-                )
+                ),
+                new AutoAimShoot5(turret, shooter, indexer, limelight)
         );
     }
 }

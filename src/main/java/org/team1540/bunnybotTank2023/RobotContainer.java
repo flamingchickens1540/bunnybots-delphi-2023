@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.team1540.bunnybotTank2023.commands.auto.*;
-import org.team1540.bunnybotTank2023.commands.auto.utilSequences.AutoAimShoot5;
 import org.team1540.bunnybotTank2023.commands.drivetrain.ArcadeDriveCommand;
 import org.team1540.bunnybotTank2023.commands.drivetrain.Drivetrain;
 import org.team1540.bunnybotTank2023.commands.indexer.Indexer;
@@ -131,10 +130,10 @@ public class RobotContainer {
         autoChooser.addDefaultOption("ZeroTurret", new TurretZeroSequenceCommand(turret));
         autoChooser.addOption("DoNothing", new InstantCommand());
         autoChooser.addOption("AutoTaxi", new AutoTaxi(drivetrain, turret));
-        autoChooser.addOption("LeftSideRamTotes", new AutoLeftSideRamTotes(drivetrain, indexer,  turret, shooter, limelight));
-        autoChooser.addOption("RightSideRamTotes", new AutoRightSideRamTotes(drivetrain, indexer,  turret, shooter, limelight));
-        autoChooser.addOption("LeftSideRamSinusoid", new AutoLeftSideRamSinusoid(drivetrain, indexer, turret, shooter, limelight));
-        autoChooser.addOption("RightSideRamSinusoid", new AutoRightSideRamSinusoid(drivetrain, indexer, turret, shooter, limelight));
+        autoChooser.addOption("LeftSideRamTotes", new AutoLeftSideRamTotes(drivetrain, turret));
+        autoChooser.addOption("RightSideRamTotes", new AutoRightSideRamTotes(drivetrain, turret));
+        autoChooser.addOption("LeftSideRamSinusoid", new AutoLeftSideRamSinusoid(drivetrain, turret));
+        autoChooser.addOption("RightSideRamSinusoid", new AutoRightSideRamSinusoid(drivetrain, turret));
         autoChooser.addOption("TaxiShoot5", new AutoTaxiShoot5(drivetrain, indexer, turret, shooter, limelight));
     }
 

@@ -19,7 +19,6 @@ public class AutoTaxi extends AutoCommand {
                 true
         );
 
-        addRequirements(drivetrain);
         addCommands(
                 Commands.parallel(
                         pathCommands.get(0),
