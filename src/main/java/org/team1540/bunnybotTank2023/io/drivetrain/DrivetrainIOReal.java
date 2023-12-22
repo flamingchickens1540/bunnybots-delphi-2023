@@ -36,8 +36,10 @@ public class DrivetrainIOReal implements DrivetrainIO {
         backLeft.setSmartCurrentLimit(DrivetrainConstants.DRIVETRAIN_MOTOR_CURRENT_LIMIT);
         backRight.setSmartCurrentLimit(DrivetrainConstants.DRIVETRAIN_MOTOR_CURRENT_LIMIT);
 
-        frontLeft.enableVoltageCompensation(12);
-        frontRight.enableVoltageCompensation(12);
+        frontRight.disableVoltageCompensation();
+        frontLeft.disableVoltageCompensation();
+//        frontLeft.enableVoltageCompensation(12);
+//        frontRight.enableVoltageCompensation(12);
     }
 
     @Override

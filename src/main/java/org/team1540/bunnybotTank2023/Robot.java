@@ -26,6 +26,8 @@ public class Robot extends LoggedRobot {
     
     private RobotContainer robotContainer;
 
+    private boolean hasRunAuto = false;
+
     @Override
     public void robotInit() {
         System.out.println("[Init] Starting AdvantageKit");
@@ -50,7 +52,7 @@ public class Robot extends LoggedRobot {
 
         // Setup data receivers and replay source
         if (isReal()) {
-            if (DriverStation.isFMSAttached()) new WPILOGWriter("/U");
+            logger.addDataReceiver(new WPILOGWriter("/U"));
             logger.addDataReceiver(new NT4Publisher());
         } else {
             if (Constants.simulationMode == Constants.SimulationMode.SIM) {
@@ -84,9 +86,11 @@ public class Robot extends LoggedRobot {
     
     @Override
     public void autonomousInit() {
+        robotContainer.setAutoDefaultCommands();
         autonomousCommand = robotContainer.getAutonomousCommand();
-        if (autonomousCommand != null) {
+        if (autonomousCommand != null && !(hasRunAuto && DriverStation.isFMSAttached())) {
             autonomousCommand.schedule();
+            hasRunAuto = true;
         }
     }
     
@@ -98,6 +102,7 @@ public class Robot extends LoggedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        robotContainer.setTeleopDefaultCommands();
     }
     
     @Override

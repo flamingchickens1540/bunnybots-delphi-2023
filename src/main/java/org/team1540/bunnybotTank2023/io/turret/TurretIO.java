@@ -8,11 +8,11 @@ public interface TurretIO {
     @AutoLog
     class TurretInputs{
         // fields:
-        public double motorCurrentPositionDegrees = 0;
-        public double SetPointDegrees = 0;
+        public double turretCurrentPositionDegrees = 0;
+        public double turretSetPointDegrees = 0;
         public double motorVoltage = 0;
         public double motorCurrentAmps = 0;
-        public double motorVelocityRPM = 0;
+        public double motorVelocityRPS = 0;
         public boolean forwardLimitSwitch = false;
         public boolean reverseLimitSwitch = false;
     }
@@ -20,6 +20,10 @@ public interface TurretIO {
     void setVoltage(double volts);
 
     void setTurretPosition(Rotation2d position);
+
+    void resetEncoder(Rotation2d position);
+
+    void configurePID(double kP, double kI, double kD);
 
     void updateInputs(TurretInputs inputs);
 }

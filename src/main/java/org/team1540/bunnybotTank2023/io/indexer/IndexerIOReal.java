@@ -15,12 +15,12 @@ public class IndexerIOReal implements IndexerIO {
 
         topMotor1.setSmartCurrentLimit(30);
         topMotor2.setSmartCurrentLimit(30);
-        bottomMotor.setSmartCurrentLimit(30);
+        bottomMotor.setSmartCurrentLimit(25);
 
-        topMotor2.follow(topMotor1);
+        topMotor2.follow(topMotor1, true);
 
         topMotor1.setInverted(false);
-        topMotor2.setInverted(true);
+//        topMotor2.setInverted(false);
         bottomMotor.setInverted(true);
     }
 

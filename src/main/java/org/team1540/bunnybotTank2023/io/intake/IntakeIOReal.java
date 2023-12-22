@@ -2,7 +2,6 @@ package org.team1540.bunnybotTank2023.io.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -22,8 +21,8 @@ public class IntakeIOReal implements IntakeIO {
     }
     @Override
     public void setFold(boolean fold) {
-        solenoid1.set(fold);
-        solenoid2.set(fold);
+        solenoid1.set(!fold);
+        solenoid2.set(!fold);
     }
 
     @Override
